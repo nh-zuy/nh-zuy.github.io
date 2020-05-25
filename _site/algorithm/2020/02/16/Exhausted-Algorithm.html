@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Exhaustive Algorithm</title>
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="../assets/font-awesome-4.7.0/css/font-awesome.min.css/">
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link
+    rel="canonical"
+    href="http://localhost:4000/algorithm/2020/02/16/Exhausted-Algorithm.html"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Muli:400,300"
+    rel="stylesheet"
+    type="text/css"
+  />
+</head>
+
+
+  <body>
+    <aside>
+	<p style="float:left; font-size: 20px; line-height: 10px; padding: 0px 10px;font-weight: bold; text-shadow: #999 0 4px 2px;"><a href="/" style="color: #19ccaa;"> ZUY </a></p>
+	<div class="container">
+		<nav>
+			<ul>
+   
+<li><a href="/about/">About</a></li>
+  
+<li><a href="/contact/">Contact</a></li>
+         
+<li><a href="/Article">Article</a></li>
+			</ul>
+			</li>
+			</ul>
+		</nav>
+	</div>
+</aside>
+
+<header>
+	<img src="../assets/images/zbloguy.png" align="middle" width="250" heigth="250">
+	<h1 style="font-size: 100px;text-shadow: #999 0 6px 3px;">
+		<a href="/">ZBLOGuy</a>
+	</h1>
+</header>
+
+    <main>
+      <article>
+        <h2>Exhaustive Algorithm</h2>
+<time
+  >Feb 16, 2020</time
+>
+
+<h2 id="exhaustive-algorithm">EXHAUSTIVE ALGORITHM</h2>
+<hr />
+
+<ul>
+  <li>
+    <p>Hello everyone, “Data structure and algorithm” is an important subject in college. It includes a lots things about algorithm, …, and exhaustive algorithm is one of all.</p>
+  </li>
+  <li>
+    <p>An exhaustive algorithm is one that finds a best combination of items by looking all the posible combination.</p>
+  </li>
+  <li>
+    <p>Recursion is helpful if you need to examine many posible combination and identify the best combination.</p>
+  </li>
+  <li>Problem: How many different ways you can make change for 7,700 VND(by coins) using our system of coins?
+    <ul>
+      <li>Ex: 7,700 = 5,000 + 2,000 + 500 + 200 = 5,000 + 1,000 + 1,000 + 500 + 200 = …</li>
+    </ul>
+  </li>
+  <li>
+    <p>Your task: Find the number of posible combination and the best combination.</p>
+  </li>
+  <li>Procedure:
+    <ol>
+      <li>
+        <p>Initialize <strong>coinPos</strong> mark the coin value we used.</p>
+      </li>
+      <li>
+        <p><strong>coinsUsed[]</strong> is a array stores the used coins.</p>
+      </li>
+      <li>
+        <p>Make a call to recursive function with <strong>amount</strong> subtract to <strong>coinsValue[coinPos]</strong>.</p>
+      </li>
+      <li>
+        <p>If <strong>amount</strong> equal to 0, store all the used coins in <strong>coinsUsed[]</strong> into <strong>bestCoins[]</strong>,
+assign <strong>numBestCoins</strong> by <strong>numCoinsUsed</strong>.</p>
+      </li>
+      <li>
+        <p>If <strong>amount</strong> is negative, return( reject this combination).</p>
+      </li>
+      <li>
+        <p>Repeat untill <strong>coinsLeft</strong> equal to zero.</p>
+      </li>
+    </ol>
+  </li>
+  <li>Here is code:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#include &lt;iostream&gt;</span>
+<span class="c1">#include &lt;climits&gt;</span>
+
+<span class="n">const</span> <span class="n">int</span> <span class="no">NO_SOLUTIONS</span> <span class="o">=</span> <span class="no">INT_MAX</span><span class="p">;</span>
+<span class="n">const</span> <span class="n">int</span> <span class="no">MAX_COINS_CHANGES</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="n">const</span> <span class="n">int</span> <span class="no">MAX_COINS_VALUES</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+
+<span class="n">int</span> <span class="n">bestCoins</span><span class="p">[</span><span class="no">MAX_COINS_CHANGE</span><span class="p">];</span> <span class="sr">//</span> <span class="no">Array</span> <span class="n">stores</span> <span class="n">the</span> <span class="n">consequence</span> <span class="n">of</span> <span class="n">the</span> <span class="n">best</span> <span class="n">coins</span> <span class="n">combination</span>
+
+<span class="n">int</span> <span class="n">coinsValue</span><span class="p">[</span><span class="no">MAX_COINS_VALUES</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">500</span><span class="p">};</span>
+
+<span class="n">int</span> <span class="n">numBestCoins</span> <span class="o">=</span> <span class="no">NO_SOLUTIONS</span><span class="p">,</span>
+    <span class="n">numSolutions</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">numCoins</span><span class="p">;</span>
+
+<span class="n">void</span> <span class="n">findBestOfCoinsCombination</span><span class="p">(</span><span class="n">int</span> <span class="n">coinsLeft</span><span class="p">,</span> <span class="n">int</span> <span class="n">amount</span><span class="p">,</span> <span class="n">int</span> <span class="n">coinsUsed</span><span class="p">,</span> <span class="n">int</span> <span class="n">numCoinsUsed</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="n">int</span> <span class="n">coinPos</span><span class="p">;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">coinsLeft</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">amount</span> <span class="n">smaller</span> <span class="n">than</span> <span class="n">zero</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">amount</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">numCoinsUsed</span> <span class="o">&lt;</span> <span class="n">numBestCoins</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">for</span> <span class="p">(</span><span class="n">int</span>  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numCoinsUsed</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+			<span class="p">{</span>
+				<span class="n">bestCoins</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">coinsUsed</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+			<span class="p">};</span>
+		
+			<span class="n">numBestCoins</span> <span class="o">=</span> <span class="n">numCoinsUsed</span><span class="p">;</span>
+		<span class="p">};</span>
+	
+		<span class="n">numSolutions</span><span class="o">++</span><span class="p">;</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">};</span>
+
+	<span class="n">coinPos</span> <span class="o">=</span> <span class="n">numCoins</span> <span class="o">-</span> <span class="n">coinsLeft</span><span class="p">;</span>
+	<span class="n">coinsUsed</span><span class="p">[</span><span class="n">numCoinsUsed</span><span class="p">]</span> <span class="o">=</span> <span class="n">coinsValue</span><span class="p">[</span><span class="n">coinPos</span><span class="p">];</span>
+	<span class="n">numCoinsUsed</span><span class="o">++</span><span class="p">;</span>
+
+	<span class="n">findBestOfCoinsCombination</span><span class="p">(</span><span class="n">coinsLeft</span><span class="p">,</span> <span class="n">amount</span> <span class="o">-</span> <span class="n">coinsValue</span><span class="p">[</span><span class="n">coinPos</span><span class="p">],</span> <span class="n">coinsUsed</span><span class="p">,</span> <span class="n">numCoinsUsed</span><span class="p">);</span>
+
+	<span class="n">numCoinsUsed</span><span class="o">--</span><span class="p">;</span>
+
+	<span class="n">findBestOfCoinsCombination</span><span class="p">(</span><span class="n">coinsLeft</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">amount</span><span class="p">,</span> <span class="n">coinsUsed</span><span class="p">,</span> <span class="n">numCoinsUsed</span><span class="p">);</span>
+<span class="p">};</span></code></pre></figure>
+
+<h4 id="cre-starting-out-with-ceight-edition---tony-gaddis">Cre: Starting out with C++(Eight edition) - Tony Gaddis</h4>
+
+
+
+
+
+
+
+
+      </article>
+      <footer>
+	<p>
+"Diligence is the mother of success"
+</p>
+	<div>
+		<ul style="list-style: none; margin-left: 0px; text-align:left;">
+			<li><a target="_blank" href="https://twitter.com/NguynNh59795331"><i class="fa fa-twitter" aria-hidden="true"></i>
+&nbsp; Twitter&nbsp;NguynNh59795331</a></li>
+			<li><a target="_blank" href="https://github.com/nh-zuy"><i class="fa fa-github" aria-hidden="true"></i>
+&nbsp; Github&nbsp;nh-zuy</a></li>
+			<li><a target="_blank" href="mailto:hebiitachi2@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; Email&nbsp;hebiitachi2@gmail.com</a></li>
+		</ul>
+	</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+  </body>
+</html>

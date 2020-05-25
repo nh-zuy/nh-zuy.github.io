@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>How to build a Christmas Tree</title>
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="../assets/font-awesome-4.7.0/css/font-awesome.min.css/">
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link
+    rel="canonical"
+    href="http://localhost:4000/python/2020/01/15/Christmas-tree.html"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Muli:400,300"
+    rel="stylesheet"
+    type="text/css"
+  />
+</head>
+
+
+  <body>
+    <aside>
+	<p style="float:left; font-size: 20px; line-height: 10px; padding: 0px 10px;font-weight: bold; text-shadow: #999 0 4px 2px;"><a href="/" style="color: #19ccaa;"> ZUY </a></p>
+	<div class="container">
+		<nav>
+			<ul>
+   
+<li><a href="/about/">About</a></li>
+  
+<li><a href="/contact/">Contact</a></li>
+         
+<li><a href="/Article">Article</a></li>
+			</ul>
+			</li>
+			</ul>
+		</nav>
+	</div>
+</aside>
+
+<header>
+	<img src="../assets/images/zbloguy.png" align="middle" width="250" heigth="250">
+	<h1 style="font-size: 100px;text-shadow: #999 0 6px 3px;">
+		<a href="/">ZBLOGuy</a>
+	</h1>
+</header>
+
+    <main>
+      <article>
+        <h2>How to build a Christmas Tree</h2>
+<time
+  >Jan 15, 2020</time
+>
+
+<h4 id="make-a-christmas-tree-in-python">MAKE A CHRISTMAS TREE IN PYTHON</h4>
+
+<p>1.<strong>IDEA</strong>: We will use a main loop that looping the tree with some colored-dots after a few seconnds. After each loop, the colored-dots get on/off such as: red-&gt;none, blue-&gt;none, …, by using the Threading module.</p>
+
+<p>1.<strong>Implement</strong>:</p>
+
+<ul>
+  <li>
+    <p>Take a Christmas tree picture in ASCII code, put it into file “ChristmasTree.txt”. Changing some characters into R, G, Y or B( equivalent to red, green, yellow and blue).</p>
+  </li>
+  <li>
+    <p>Import some module necessary</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="n">import</span> <span class="n">os</span>
+	<span class="n">import</span> <span class="n">threading</span>
+	<span class="n">import</span> <span class="n">time</span></code></pre></figure>
+
+<ul>
+  <li>Reading the file into a list:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="n">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'ChristmasTree.txt'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="n">as</span> <span class="ss">file:
+		</span><span class="no">Tree</span> <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">file</span><span class="p">.</span><span class="nf">read</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">())</span></code></pre></figure>
+
+<ul>
+  <li>Looping the list and save the index of the colored-dots:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="no">Red</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="no">Green</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="no">Yellow</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="no">Blue</span> <span class="o">=</span> <span class="p">[]</span>
+
+	<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">character</span> <span class="k">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="no">Tree</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">'R'</span><span class="p">:</span>
+			<span class="no">Red</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+			<span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="no">O</span><span class="p">;</span>
+		<span class="n">elif</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">'Y'</span><span class="p">:</span>
+			<span class="no">Yellow</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+			<span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="no">O</span><span class="p">;</span>
+		<span class="n">elif</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">'G'</span><span class="p">:</span>
+			<span class="no">Green</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+			<span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="no">O</span><span class="p">;</span>
+		<span class="n">elif</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">:</span>
+			<span class="no">Blue</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">index</span><span class="p">);</span>
+			<span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="no">O</span><span class="p">;</span></code></pre></figure>
+
+<ul>
+  <li>We continue to build 2 functions for change the colour of the colored-dots and looping the on/off:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="k">def</span> <span class="nf">Colored_form</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">'Red'</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">"</span><span class="se">\033</span><span class="s2">[91mO</span><span class="se">\033</span><span class="s2">[0m"</span>
+		<span class="n">elif</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">'Green'</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">"</span><span class="se">\033</span><span class="s2">[92mO</span><span class="se">\033</span><span class="s2">[0m"</span>
+		<span class="n">elif</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">'Yellow'</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">"</span><span class="se">\033</span><span class="s2">[93mO</span><span class="se">\033</span><span class="s2">[0m"</span>
+		<span class="n">elif</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">'Blue'</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">"</span><span class="se">\033</span><span class="s2">[94mO</span><span class="se">\033</span><span class="s2">[0m"</span>
+
+	<span class="k">def</span> <span class="nf">Transform</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">indexes</span><span class="p">):</span>
+		<span class="n">off</span> <span class="o">=</span> <span class="no">False</span>
+		<span class="k">while</span> <span class="no">True</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">index</span> <span class="k">in</span> <span class="ss">indexes:
+				</span><span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="no">ColoredForm</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="k">if</span> <span class="n">not</span> <span class="n">off</span> <span class="k">else</span> <span class="s1">'O'</span>
+			<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="s1">'cls'</span> <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">'nt'</span> <span class="k">else</span> <span class="s1">'clear'</span><span class="p">)</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Tree</span><span class="p">))</span>
+
+			<span class="n">off</span> <span class="o">=</span> <span class="n">not</span> <span class="n">off</span>
+			<span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>Now, we have the main function to loop the tree, we continue to set up 4 thread of Red, Green, Yellow, Blue, run in parallel:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="no">Red_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="no">Transform</span><span class="p">,</span> <span class="n">argus</span><span class="o">=</span><span class="p">(</span><span class="s1">'Red'</span><span class="p">,</span> <span class="no">Red</span><span class="p">))</span>
+	<span class="no">Green_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="no">Transform</span><span class="p">,</span> <span class="n">argus</span><span class="o">=</span><span class="p">(</span><span class="s1">'Green'</span><span class="p">,</span> <span class="no">Green</span><span class="p">))</span>
+	<span class="no">Yellow_thread</span><span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="no">Transform</span><span class="p">,</span> <span class="n">argus</span><span class="o">=</span><span class="p">(</span><span class="s1">'Yellow'</span><span class="p">,</span> <span class="no">Yellow</span><span class="p">))</span>
+	<span class="no">Blue_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="no">Transform</span><span class="p">,</span> <span class="n">argus</span><span class="o">=</span><span class="p">(</span><span class="s1">'Blue'</span><span class="p">,</span> <span class="no">Blue</span><span class="p">))</span>
+
+	<span class="k">for</span> <span class="n">thread</span> <span class="k">in</span> <span class="p">[</span><span class="no">Red_thread</span><span class="p">,</span> <span class="no">Green_thread</span><span class="p">,</span> <span class="no">Yellow_thread</span><span class="p">,</span> <span class="no">Blue_thread</span><span class="p">]:</span>
+		<span class="n">thread</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+	
+	<span class="k">for</span> <span class="n">thread</span> <span class="k">in</span> <span class="p">[</span><span class="no">Red_thread</span><span class="p">,</span> <span class="no">Green_thread</span><span class="p">,</span> <span class="no">Yellow_thread</span><span class="p">,</span> <span class="no">Blue_thread</span><span class="p">]:</span>
+		<span class="n">thread</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span></code></pre></figure>
+
+<ul>
+  <li>Take a lock and release it when draw new screen:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="no">Lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Lock</span><span class="p">()</span>
+	<span class="o">...</span>
+	<span class="no">Lock</span><span class="p">.</span><span class="nf">acquire</span><span class="p">()</span>
+	<span class="no">Lock</span><span class="p">.</span><span class="nf">release</span><span class="p">()</span></code></pre></figure>
+
+<ul>
+  <li>Last, full of program:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="c1">#!/usr/bin/env python</span>
+
+	<span class="n">import</span> <span class="n">os</span>
+	<span class="n">import</span> <span class="n">time</span>
+	<span class="n">import</span> <span class="n">threading</span>
+
+
+	<span class="n">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'ChristmasTree.txt'</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="n">as</span> <span class="ss">file:
+		</span><span class="no">Tree</span> <span class="o">=</span> <span class="n">list</span><span class="p">(</span><span class="n">file</span><span class="p">.</span><span class="nf">read</span><span class="p">().</span><span class="nf">rstrip</span><span class="p">())</span>
+
+	<span class="no">Lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Lock</span><span class="p">()</span>
+
+	<span class="k">def</span> <span class="nf">Colored_form</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">'Red'</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">"</span><span class="se">\033</span><span class="s2">[91mO</span><span class="se">\033</span><span class="s2">[0m"</span>
+		<span class="n">elif</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">'Green'</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">"</span><span class="se">\033</span><span class="s2">[92mO</span><span class="se">\033</span><span class="s2">[0m"</span>
+		<span class="n">elif</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">'Yellow'</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">"</span><span class="se">\033</span><span class="s2">[93mO</span><span class="se">\033</span><span class="s2">[0m"</span>
+		<span class="n">elif</span> <span class="n">color</span> <span class="o">==</span> <span class="s1">'Blue'</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s2">"</span><span class="se">\033</span><span class="s2">[94mO</span><span class="se">\033</span><span class="s2">[0m"</span>
+
+	<span class="k">def</span> <span class="nf">Transform</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">indexes</span><span class="p">):</span>
+		<span class="n">off</span> <span class="o">=</span> <span class="no">False</span>
+		<span class="k">while</span> <span class="no">True</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">index</span> <span class="k">in</span> <span class="ss">indexes:
+				</span><span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="no">Colored_form</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="k">if</span> <span class="n">not</span> <span class="n">off</span> <span class="k">else</span> <span class="s1">'O'</span>
+
+			<span class="no">Lock</span><span class="p">.</span><span class="nf">acquire</span><span class="p">()</span>
+			<span class="n">os</span><span class="p">.</span><span class="nf">system</span><span class="p">(</span><span class="s1">'cls'</span> <span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s1">'nt'</span> <span class="k">else</span> <span class="s1">'clear'</span><span class="p">)</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">''</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="no">Tree</span><span class="p">))</span>
+			<span class="no">Lock</span><span class="p">.</span><span class="nf">release</span><span class="p">()</span>
+
+			<span class="n">off</span> <span class="o">=</span> <span class="n">not</span> <span class="n">off</span>
+			<span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mf">1.5</span><span class="p">)</span>
+
+	<span class="no">Red</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="no">Green</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="no">Yellow</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="no">Blue</span> <span class="o">=</span> <span class="p">[]</span>
+
+	<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">character</span> <span class="k">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="no">Tree</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">'R'</span><span class="p">:</span>
+			<span class="no">Red</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+			<span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">elif</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">'Y'</span><span class="p">:</span>
+			<span class="no">Yellow</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+			<span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">elif</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">'G'</span><span class="p">:</span>
+			<span class="no">Green</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+			<span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">elif</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">'B'</span><span class="p">:</span>
+			<span class="no">Blue</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+			<span class="no">Tree</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="no">Red_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Thread</span><span class="p">(</span><span class="n">target</span> <span class="o">=</span> <span class="no">Transform</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Red'</span><span class="p">,</span> <span class="no">Red</span><span class="p">))</span>
+<span class="no">Green_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Thread</span><span class="p">(</span><span class="n">target</span> <span class="o">=</span> <span class="no">Transform</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Green'</span><span class="p">,</span> <span class="no">Green</span><span class="p">))</span>
+<span class="no">Yellow_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Thread</span><span class="p">(</span><span class="n">target</span> <span class="o">=</span> <span class="no">Transform</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Yellow'</span><span class="p">,</span> <span class="no">Yellow</span><span class="p">))</span>
+<span class="no">Blue_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="no">Thread</span><span class="p">(</span><span class="n">target</span> <span class="o">=</span> <span class="no">Transform</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Blue'</span><span class="p">,</span> <span class="no">Blue</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">thread</span> <span class="k">in</span> <span class="p">[</span><span class="no">Red_thread</span><span class="p">,</span> <span class="no">Green_thread</span><span class="p">,</span> <span class="no">Yellow_thread</span><span class="p">,</span> <span class="no">Blue_thread</span><span class="p">]:</span>
+	<span class="n">thread</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">thread</span> <span class="k">in</span> <span class="p">[</span><span class="no">Red_thread</span><span class="p">,</span> <span class="no">Green_thread</span><span class="p">,</span> <span class="no">Yellow_thread</span><span class="p">,</span> <span class="no">Blue_thread</span><span class="p">]:</span>
+	<span class="n">thread</span><span class="p">.</span><span class="nf">join</span><span class="p">()</span></code></pre></figure>
+
+
+
+
+
+
+
+
+
+      </article>
+      <footer>
+	<p>
+"Diligence is the mother of success"
+</p>
+	<div>
+		<ul style="list-style: none; margin-left: 0px; text-align:left;">
+			<li><a target="_blank" href="https://twitter.com/NguynNh59795331"><i class="fa fa-twitter" aria-hidden="true"></i>
+&nbsp; Twitter&nbsp;NguynNh59795331</a></li>
+			<li><a target="_blank" href="https://github.com/nh-zuy"><i class="fa fa-github" aria-hidden="true"></i>
+&nbsp; Github&nbsp;nh-zuy</a></li>
+			<li><a target="_blank" href="mailto:hebiitachi2@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; Email&nbsp;hebiitachi2@gmail.com</a></li>
+		</ul>
+	</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+  </body>
+</html>

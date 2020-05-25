@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>A simple way to parse a website</title>
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="../assets/font-awesome-4.7.0/css/font-awesome.min.css/">
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link
+    rel="canonical"
+    href="http://localhost:4000/technique/2020/01/17/Parsing-A-Website.html"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Muli:400,300"
+    rel="stylesheet"
+    type="text/css"
+  />
+</head>
+
+
+  <body>
+    <aside>
+	<p style="float:left; font-size: 20px; line-height: 10px; padding: 0px 10px;font-weight: bold; text-shadow: #999 0 4px 2px;"><a href="/" style="color: #19ccaa;"> ZUY </a></p>
+	<div class="container">
+		<nav>
+			<ul>
+   
+<li><a href="/about/">About</a></li>
+  
+<li><a href="/contact/">Contact</a></li>
+         
+<li><a href="/Article">Article</a></li>
+			</ul>
+			</li>
+			</ul>
+		</nav>
+	</div>
+</aside>
+
+<header>
+	<img src="../assets/images/zbloguy.png" align="middle" width="250" heigth="250">
+	<h1 style="font-size: 100px;text-shadow: #999 0 6px 3px;">
+		<a href="/">ZBLOGuy</a>
+	</h1>
+</header>
+
+    <main>
+      <article>
+        <h2>A simple way to parse a website</h2>
+<time
+  >Jan 17, 2020</time
+>
+
+<h4 id="the-first-time-ive-parsed-a-website">The first time I’ve parsed a website</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Early, I found it diffucult to parse a website because I didn't know how to do it right. After a while of searching GG and Youtube, I realized that bs4 module can help me.
+</code></pre></div></div>
+
+<ul>
+  <li>Conditions: Python3.x, a little understanding of HTML, working with file .csv, … brain :v</li>
+</ul>
+
+<p>OK, let’s get started!</p>
+
+<ul>
+  <li>First, import some libraries can help us with parsing our website:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="n">from</span> <span class="n">bs4</span> <span class="n">import</span> <span class="no">BeautifulSoup</span>
+	<span class="n">from</span> <span class="n">urllib</span><span class="p">.</span><span class="nf">request</span> <span class="n">import</span> <span class="n">urlopen</span>
+	<span class="n">import</span> <span class="n">csv</span></code></pre></figure>
+
+<ul>
+  <li>Get the URL of your website you want to parse and make a request( Remember to close it :v):</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="n">url</span> <span class="o">=</span> <span class="s2">"https://www.newegg.com/global/vn-en/p/pl?Submit=StoreIM&amp;page=1&amp;Depa=3&amp;Category=223"</span>
+	<span class="n">page</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+	<span class="no">Soup</span> <span class="o">=</span> <span class="no">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="s2">"html.parser"</span><span class="p">)</span>
+	<span class="n">page</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span></code></pre></figure>
+
+<ul>
+  <li>Now, we’re going to take the information of the laptops:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="no">Laptops</span> <span class="o">=</span> <span class="no">Soup</span><span class="p">.</span><span class="nf">findAll</span><span class="p">(</span><span class="s1">'div'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">"item-container"</span><span class="p">).</span><span class="nf">find</span><span class="p">(</span><span class="s1">'div'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">"item-info"</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>Make a file .csv to store the info of each laptop:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">	<span class="n">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'ngu.csv'</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'w'</span><span class="p">)</span> <span class="n">as</span> <span class="ss">file:
+		</span><span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="nf">writer</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+		<span class="n">writer</span><span class="p">.</span><span class="nf">writerow</span><span class="p">([</span><span class="s1">'BRAND'</span><span class="p">,</span> <span class="s1">'INFO'</span><span class="p">,</span> <span class="s1">'PRICE'</span><span class="p">,</span> <span class="s1">'SUP_PRICE'</span><span class="p">])</span>
+		<span class="k">for</span> <span class="n">laptop</span> <span class="k">in</span> <span class="no">Laptops</span><span class="p">:</span>
+			<span class="n">brand</span> <span class="o">=</span> <span class="n">laptop</span><span class="p">.</span><span class="nf">a</span><span class="p">.</span><span class="nf">img</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s1">'title'</span><span class="p">)</span>
+			<span class="n">info</span> <span class="o">=</span> <span class="n">laptop</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">"item-info"</span><span class="p">).</span><span class="nf">text</span>
+
+			<span class="n">laptop_action</span> <span class="o">=</span> <span class="n">laptop</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="s1">'div'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">"item-action"</span><span class="p">).</span><span class="nf">ul</span>
+
+			<span class="n">current_price</span> <span class="o">=</span> <span class="n">laptop_action</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="s1">'li'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">"price-current"</span><span class="p">).</span><span class="nf">strong</span><span class="p">.</span><span class="nf">text</span>
+			<span class="n">sup_price</span> <span class="o">=</span> <span class="n">laptop_action</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="s1">'li'</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">"price-current"</span><span class="p">).</span><span class="nf">sup</span><span class="p">.</span><span class="nf">text</span></code></pre></figure>
+
+<ul>
+  <li>Last, we’re going to check the result in “ngu.csv” file ^^</li>
+</ul>
+
+
+
+
+
+
+
+
+
+      </article>
+      <footer>
+	<p>
+"Diligence is the mother of success"
+</p>
+	<div>
+		<ul style="list-style: none; margin-left: 0px; text-align:left;">
+			<li><a target="_blank" href="https://twitter.com/NguynNh59795331"><i class="fa fa-twitter" aria-hidden="true"></i>
+&nbsp; Twitter&nbsp;NguynNh59795331</a></li>
+			<li><a target="_blank" href="https://github.com/nh-zuy"><i class="fa fa-github" aria-hidden="true"></i>
+&nbsp; Github&nbsp;nh-zuy</a></li>
+			<li><a target="_blank" href="mailto:hebiitachi2@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; Email&nbsp;hebiitachi2@gmail.com</a></li>
+		</ul>
+	</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+  </body>
+</html>

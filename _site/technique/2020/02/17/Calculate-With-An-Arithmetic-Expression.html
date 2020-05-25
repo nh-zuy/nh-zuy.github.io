@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Calculate An Arithmetic Expression</title>
+
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="../assets/font-awesome-4.7.0/css/font-awesome.min.css/">
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link
+    rel="canonical"
+    href="http://localhost:4000/technique/2020/02/17/Calculate-With-An-Arithmetic-Expression.html"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css?family=Muli:400,300"
+    rel="stylesheet"
+    type="text/css"
+  />
+</head>
+
+
+  <body>
+    <aside>
+	<p style="float:left; font-size: 20px; line-height: 10px; padding: 0px 10px;font-weight: bold; text-shadow: #999 0 4px 2px;"><a href="/" style="color: #19ccaa;"> ZUY </a></p>
+	<div class="container">
+		<nav>
+			<ul>
+   
+<li><a href="/about/">About</a></li>
+  
+<li><a href="/contact/">Contact</a></li>
+         
+<li><a href="/Article">Article</a></li>
+			</ul>
+			</li>
+			</ul>
+		</nav>
+	</div>
+</aside>
+
+<header>
+	<img src="../assets/images/zbloguy.png" align="middle" width="250" heigth="250">
+	<h1 style="font-size: 100px;text-shadow: #999 0 6px 3px;">
+		<a href="/">ZBLOGuy</a>
+	</h1>
+</header>
+
+    <main>
+      <article>
+        <h2>Calculate An Arithmetic Expression</h2>
+<time
+  >Feb 17, 2020</time
+>
+
+<h2 id="calculate-an-arithmetic-express">CALCULATE AN ARITHMETIC EXPRESS</h2>
+<hr />
+
+<ul>
+  <li>
+    <p>Hello guys, have you ever heard of “Stack” and “Queue” before? They’re basic data structure. Like an array and a linked list, Stack and Queue is a basic data structure that holds a sequence of elements.</p>
+  </li>
+  <li>
+    <p>However, they’re still different from array, linked list and each of them about mechanism of action:</p>
+
+    <ul>
+      <li>
+        <p>Stack: stores and retrives items in a last-in-first-out manner(LIFO). That means: the last item
+inserted in stack is the first one retrive. Simple applications: convert to another counting system, check a sequence of parentheses, …</p>
+      </li>
+      <li>
+        <p>Queue: stores anf retrives items in a first-in-first-out manner(FIFO). That means: abcxyz, … oh I’m lazy …</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>“Stack” and “Queue” are helpful data structure, support us handling data.</p>
+  </li>
+  <li>
+    <p>Recently, I’ve found a interesting application of “Stack” and “Queue”, calculate a arithmetic express using “Balan” algorithm.</p>
+  </li>
+  <li>
+    <p>About “Balan” algorithm, I won’t concern with it, because you can search GG, key word is “Reverse Polish notation”, I will just give you how to find result through source code.</p>
+  </li>
+</ul>
+
+<ol>
+  <li>Procedure:</li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* Initialize a stack stores operands, a queue stores digits.
+
+* Enter the express through a string chain.
+
+* Parsing the chain into a digit, a operand, a parentheses. 
+
+* Initialize the second stack calculates express.
+</code></pre></div></div>
+
+<ol>
+  <li>Source code:</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">bool</span> <span class="n">isDigit</span><span class="p">(</span><span class="n">char</span> <span class="n">character</span><span class="p">)</span> <span class="o">/</span><span class="sr">/ Check if the character is a digit ([0..9])
+{
+	if (character &gt;= '0' &amp;&amp; character &lt;= '9')
+	{
+		return true;
+	};
+
+	return false;
+};
+
+std::string getItem(std::string&amp; str) /</span><span class="o">/</span> <span class="no">Get</span> <span class="n">the</span> <span class="n">digits</span><span class="p">,</span> <span class="n">operands</span> <span class="n">or</span> <span class="n">parentheses</span>
+<span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">item</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'('</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">')'</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'+'</span> <span class="o">||</span> <span class="sr">//</span> <span class="no">If</span> <span class="n">the</span> <span class="n">first</span> <span class="n">character</span> <span class="n">is</span> <span class="n">a</span> <span class="n">operand</span> <span class="n">or</span>
+            <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'-'</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'*'</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'/'</span><span class="p">))</span>  <span class="o">/</span><span class="sr">/ a parentheses
+	{
+		item += str[0]; 
+		str.erase(0, 1); /</span><span class="o">/</span> <span class="no">Erase</span> <span class="n">this</span> <span class="n">position</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'\0'</span><span class="p">)</span> <span class="o">/</span><span class="sr">/ Else if the first character is a digit
+	{
+		item += str[0];
+		str.erase(0, 1);
+		while (!str.empty() &amp;&amp; isDigit(str[0]) || str[0] == '.') /</span><span class="o">/</span> <span class="no">Check</span> <span class="n">digit</span> <span class="n">or</span> <span class="n">a</span> <span class="n">dot</span>
+		<span class="p">{</span>
+			<span class="n">item</span> <span class="o">+=</span> <span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+			<span class="n">str</span><span class="p">.</span><span class="nf">erase</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+		<span class="p">};</span>
+	<span class="p">};</span>
+
+	<span class="k">return</span> <span class="n">item</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="n">int</span> <span class="no">Classify</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">item</span><span class="p">)</span> <span class="o">/</span><span class="sr">/ Check the type of the item(digit, operand, parentheses)
+{
+	if (item == "+" || item == "-" || item == "*" || item == "/</span><span class="s2">")
+	{
+		return 1;
+	}
+	else if (item == "</span><span class="p">(</span><span class="s2">" || item == "</span><span class="p">)</span><span class="s2">")
+	{
+		return -1;
+	}
+	else 
+	{
+		return 0;
+	};
+};
+
+int Priority(std::string item)
+{
+	if (item == "</span><span class="o">*</span><span class="s2">" || item == "</span><span class="o">/</span><span class="s2">")
+	{
+		return 1;
+	};
+
+	return 0;
+};
+
+void ParsingChain(std::string str, std::stackst, std::queue q)
+{
+	std::string item;
+
+	while (!str.empty())
+	{
+		item = getItem(str);
+	
+		if (Classify(item) == 0)
+		{
+			q.push(item);
+		}
+		else if (Classify(item) == 1)
+		{
+			if (Priority(item) &lt; Priority(st.top())
+			{
+				q.push(st.top());
+				st.pop();
+				while (!st.empty() &amp;&amp; Priority(item) &lt; Priority(st.top()))
+				{
+					q.push(st.top());
+					st.pop();
+				};
+
+			st.push(item);
+		}
+		else if (item == "</span><span class="p">)</span><span class="s2">")
+		{
+			while (!st.empty() &amp;&amp; st.top != "</span><span class="p">(</span><span class="s2">")
+			{
+				q.push(st.top());
+				st.pop();
+			};
+			
+			st.pop();
+		};
+		else
+		{
+			st.push(item);
+		};
+	};
+
+	while (!st.empty())
+	{
+		q.push(st.top());
+		st.pop()
+	};
+};
+
+float Calculate(std::string operand, float a, float b)
+{
+	if (operand == "</span><span class="o">+</span><span class="s2">")
+	{
+		return a+b;
+	}
+	else if (operand == "</span><span class="o">-</span><span class="s2">")
+	{
+		return a-b;
+	}
+	else if (operand == "</span><span class="o">*</span><span class="s2">")
+	{
+		return a*b;
+	}
+	else if (operand == "</span><span class="o">/</span><span class="s2">")
+	{
+		return a/b;
+	};
+};
+
+float Calculation(std::queue q)
+{
+	std::stack st;
+
+	while (!q.empty())
+	{
+		std::string item = q.front();
+		q.pop();
+
+		if (classify(item) == 0)
+		{
+			st.push(item);
+		}
+		else if (classify(item) == 1)
+		{
+			if (st.size() &lt; 2)
+			{
+				return -1;
+			};
+
+			float value1 = stof(q.front());
+			q.pop();
+			float value2 = stof(q.front());
+			q.pop();
+			float result = Calculate(item, value1, value2);
+			q.push(result);
+		};
+	};
+
+	return result;
+};</span></code></pre></figure>
+
+<ul>
+  <li>Finally, let’s check it out !</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">int</span> <span class="n">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">expression</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">stack</span> <span class="n">st</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">queue</span> <span class="n">q</span><span class="p">;</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">"Enter the expression: "</span><span class="p">;</span>
+	<span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">expression</span><span class="p">;</span>
+
+	<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">"Result: "</span> <span class="s2">"&lt;&lt;"</span> <span class="no">Calculation</span><span class="p">(</span><span class="n">q</span><span class="p">);</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span></code></pre></figure>
+
+<h4 id="hehe-googbye-">HEHE, GOOGBYE !</h4>
+
+
+
+
+
+
+
+
+      </article>
+      <footer>
+	<p>
+"Diligence is the mother of success"
+</p>
+	<div>
+		<ul style="list-style: none; margin-left: 0px; text-align:left;">
+			<li><a target="_blank" href="https://twitter.com/NguynNh59795331"><i class="fa fa-twitter" aria-hidden="true"></i>
+&nbsp; Twitter&nbsp;NguynNh59795331</a></li>
+			<li><a target="_blank" href="https://github.com/nh-zuy"><i class="fa fa-github" aria-hidden="true"></i>
+&nbsp; Github&nbsp;nh-zuy</a></li>
+			<li><a target="_blank" href="mailto:hebiitachi2@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; Email&nbsp;hebiitachi2@gmail.com</a></li>
+		</ul>
+	</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<aside>
+	<p style="float:left; font-size: 20px; line-height: 10px; padding: 0px 10px;font-weight: bold; text-shadow: #999 0 4px 2px;"><a href="{{ "/" | relative_url }}" style="color: #19ccaa;"> ZUY </a></p>
+	<div class="container">
+		<nav>
+			<ul>
+{% for page in site.pages %} {% if page.title %}
+<li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
+{% endif %} {% endfor %}
+<li><a href="{{ "/Article" | prepend: site.baseurl }}">Article</a></li>
+			</ul>
+			</li>
+			</ul>
+		</nav>
+	</div>
+</aside>
+
+<header>
+	<img src="../assets/images/zbloguy.png" align="middle" width="250" heigth="250">
+	<h1 style="font-size: 100px;text-shadow: #999 0 6px 3px;">
+		<a href="{{ "/" | relative_url }}">{{ site.title }}</a>
+	</h1>
+</header>
